@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 // All the configuration necessary for Webpack to properly process file assets into a bundle
 module.exports = {
   // dynamically setting up the webpack mode
@@ -46,10 +47,12 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/i,
+        exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: ['style-loader', 'css-loader'],
       },
       {
@@ -76,5 +79,15 @@ module.exports = {
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
     extensions: ['.js', '.jsx'],
+    fallback: {
+      crypto: false,
+      stream: false,
+      path: false,
+      zlib: false,
+      net: false,
+      tls: false,
+      fs: false,
+      os: false,
+    },
   },
 };
