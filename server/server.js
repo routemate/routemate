@@ -9,6 +9,11 @@ const cors = require('cors');
 const PORT = 3000;
 const app = express();
 
+const loginRouter = require('./routes/login.js');
+
+const orderController = require('./controllers/orderController');
+const userController = require('./controllers/userController');
+
 const mongoURI = process.env.mongoURI;
 mongoose.connect(mongoURI);
 
@@ -24,15 +29,21 @@ app.use(
   })
 );
 
-/*
+// ADD ROUTES HERE
+app.use('/login', loginRouter);
 
+app.get('/', (req, res) => {
+  res.redirect('http://localhost:8080/');
+});
 
+// provides client with array of orders from db
+app.get('/orders', orderController.getOrders, (req, res) => {
+  return res.status(200).json(res.locals.orders);
+});
 
-ADD ROUTES HERE
-
-
-
-*/
+app.post('/orders', orderController.updateOrders, (req, res) => {
+  return res.status(201);
+});
 
 app.use((req, res) =>
   res.status(404).send("This is not the page you're looking for...")
