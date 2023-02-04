@@ -1,41 +1,48 @@
 import React, { useState, useRef, useEffect } from 'react';
-
-import Navbar from './components/Navbar';
-import Item from './components/Item';
-import Form from './components/Form';
+import Navbar from './Navbar';
+import Item from './Item';
+import Form from './Form';
+const axios = require('axios');
 
 const Main = () => {
   // set state
   const [orders, setOrders] = useState([]);
   const [name, setName] = useState('');
+  const allOrders = [];
 
-  /*
-  useEffect to create a bunch of <Items> and put them in an array
-    invoke a fetch get request to ('/orders')
-      the response will be an object. THe object will contain:
-        {
-          orders: [{item: 'item', orderDate: '1/2/3', company: 'Amazon', trackingNum: '123', eta: '1/10/3}, {item: 'item', orderDate: '1/2/3', company: 'Amazon', trackingNum: '123', eta: '1/10/3}]
-          name: 'Issam'
-        }
+  const helper = (newOrder) => {
+    const newState = [...orders,newOrder];
+    setOrders(newState)
+  }
 
-    setName(response.data.name)
-    
-    create an array allOrders = []
+  useEffect(() => {
+    axios.get('/order').then((response) => {
+      setOrders(response.data.orders);
+      setName(response.data.name);
 
-    loop through the orders
-      invoke <Item item={'item'}, orderDate: '1/2/3', company: 'Amazon', trackingNum: '123', eta: '1/10/3/> and add that result to allOrders
-
-    setOrders(allOrders)
-*/
+      for (let i = 0; i < orders.length; i++) {
+        const { item, orderDate, vendor, trackingId, eta } = orders[i];
+        allOrders(
+          <Item
+            item={item}
+            orderDate={orderDate}
+            vendor={vendor}
+            trackingId={trackingId}
+            eta={eta}
+            key={trackingId}
+          />
+        );
+      }
+    });
+  });
   return (
     <>
       <Navbar name={name} />
       <div>
-        <div>{/* The header section for the orders */}</div>
-        {/* all the items will render into here. PUT THE ARRAY OF ALL THE <Items> here */}
-        {/* orders */}
+        <h1>Orders</h1>
+        <div>{allOrders}</div>
       </div>
-      <Form></Form>
+      <Form helper = {helper}/>
     </>
   );
 };
