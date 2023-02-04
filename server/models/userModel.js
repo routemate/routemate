@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  name: { type: String, default: 'Mushy' },
   email: { type: String, required: true, unique: true },
   orders: { type: Array, default: [] },
   dateCreated: { type: Date, default: Date.now },
