@@ -22,7 +22,6 @@ router.use('/google', loginController.googleOAuth, (req, res) => {
 });
 
 router.use('/authenticate', userController.authenticate, (req, res) => {
-  console.log('here');
   return res.json({ authenticated: res.locals.authenticated });
 });
 

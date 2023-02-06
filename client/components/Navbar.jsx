@@ -6,10 +6,8 @@ import Button from '@material-ui/core/Button';
 import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 
-const Navbar = ({name}) => {
-
-  const useStyles = makeStyles(theme => ({
-
+const Navbar = ({ name }) => {
+  const useStyles = makeStyles((theme) => ({
     menuButton: {
       marginRight: theme.spacing(2),
     },
@@ -20,17 +18,16 @@ const Navbar = ({name}) => {
       justifyContent: 'center',
     },
   }));
-  
-  
-    const classes = useStyles();
+
+  const classes = useStyles();
 
   const username = name;
 
   const handleClick = () => {
-    <Route path='/redirect-page' element={ <Redirect to ="/login"/> }/> 
-  }
- 
-/*
+    <Route path='/redirect-page' element={<Redirect to='/login' />} />;
+  };
+
+  /*
 import { useHistory } from 'react-router-dom';
 
 function Example() {
@@ -52,13 +49,20 @@ function Example() {
     //   </div>
     // </>
 
-  <AppBar position="static" className='appbar'>
-  <Toolbar>
-  <Typography edge="start" color="inherit"  className={classes.menuButton}> Hi, {username}</Typography>
-  <Typography variant="h6" className={classes.title}>routemate</Typography>
-  <Button color="inherit" onClick = {handleClick}>Logout</Button>
-  </Toolbar>
-</AppBar>
+    <AppBar position='static' className='appbar'>
+      <Toolbar>
+        <Typography edge='start' color='inherit' className={classes.menuButton}>
+          {' '}
+          Hi, {username}
+        </Typography>
+        <Typography variant='h6' className={classes.title}>
+          routemate
+        </Typography>
+        <Button color='inherit' onClick={handleClick}>
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 

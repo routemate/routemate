@@ -6,47 +6,19 @@ import Login from './components/Login.jsx';
 import Main from './components/Main';
 
 const App = () => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // useEffect(() => {
-  //   axios.get('/login/authenticate').then((response) => {
-  //     setIsAuthenticated(response.data.authenticated);
+  useEffect(() => {
+    axios.get('/login/authenticate').then((response) => {
+      setIsAuthenticated(response.data.authenticated);
+    });
+  }, []);
 
-  //     console.log('RESPONSE STATE', response.data.authenticated);
-  //     console.log('STATE', isAuthenticated);
-  //   });
-  //   console.log('STATE OUTSIDE', isAuthenticated);
-  // }, []);
-
-  // console.log('STATE SUPER OUTSIDE', isAuthenticated);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios.get('/login/authenticate');
-  //     setIsAuthenticated(result.data.authenticated);
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   const token = document.cookie.includes('token');
-  //   console.log(token);
-  //   if (token) {
-  //     setIsAuthenticated(true);
-  //   }
-  // }, []);
-
-  // console.log(isAuthenticated);
-  const token = document.cookie.includes('token');
-  console.log('Return');
   return (
-
     <Switch>
+      {console.log('isAuthenticated', isAuthenticated)}
       <Route exact path='/'>
-        {token ? <Main /> : <Redirect to='/login' />}
-      </Route>
-      <Route path='/login'>
-        <Login />
+        {isAuthenticated ? <Main /> : <Login />}
       </Route>
     </Switch>
   );
