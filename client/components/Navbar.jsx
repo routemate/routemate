@@ -7,6 +7,7 @@ import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 
 const Navbar = ({ name }) => {
+
   const useStyles = makeStyles((theme) => ({
     menuButton: {
       marginRight: theme.spacing(2),
