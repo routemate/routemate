@@ -3,37 +3,59 @@ import Navbar from './Navbar';
 import Item from './Item';
 import Form from './Form';
 const axios = require('axios');
+import '../stylesheets/styles.css';
 
 const Main = () => {
   // set state
   const [orders, setOrders] = useState([]);
   const [name, setName] = useState('');
-  const allOrders = [];
 
-  const helper = (newOrder) => {
-    const newState = [...orders, newOrder];
+  const helper = ({ item, orderDate, vendor, trackingId, eta }) => {
+    const newOrderComponent = (
+      <Item
+        item={item}
+        orderDate={orderDate}
+        vendor={vendor}
+        trackingId={trackingId}
+        eta={eta}
+        key={trackingId}
+      />
+    );
+    const newState = [...orders, newOrderComponent];
     setOrders(newState);
   };
 
   useEffect(() => {
     axios.get('/order').then((response) => {
-      setOrders(response.data.orders);
       setName(response.data.name);
 
-      for (let i = 0; i < orders.length; i++) {
-        const { item, orderDate, vendor, trackingId, eta } = orders[i];
-        allOrders.push(
-          <Item
-            item={item}
-            orderDate={orderDate}
-            vendor={vendor}
-            trackingId={trackingId}
-            eta={eta}
-            key={trackingId}
-            className={'item'}
-          />
-        );
-      }
+      const allOrders = response.data.orders.map(({ item, orderDate, vendor, trackingId, eta }, index) => (
+        <Item
+          item={item}
+          orderDate={orderDate}
+          vendor={vendor}
+          trackingId={trackingId}
+          eta={eta}
+          key={trackingId}
+        />
+      ),[]);
+      ;
+
+      // for (let i = 0; i < response.data.orders.length; i++) {
+      //   const { item, orderDate, vendor, trackingId, eta } = orders[i];
+      //   allOrders.push(
+      //     <Item
+      //       item={item}
+      //       orderDate={orderDate}
+      //       vendor={vendor}
+      //       trackingId={trackingId}
+      //       eta={eta}
+      //       key={trackingId}
+      //       className={'item'}
+      //     />
+      //   );
+      // }
+      setOrders(allOrders);
     });
   });
 
@@ -42,7 +64,7 @@ const Main = () => {
       <Navbar name={name} />
       <div>
         <h1>Orders</h1>
-        <div>{allOrders}</div>
+        <div className={"container"}>{orders}</div>
       </div>
       <Form helper={helper} />
     </>
@@ -50,6 +72,8 @@ const Main = () => {
 };
 
 export default Main;
+
+// give container a set width and height, overflow: scroll, 
 
 // const axios = require("axios");
 
