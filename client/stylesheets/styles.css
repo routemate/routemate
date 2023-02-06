@@ -1,0 +1,12 @@
+.container {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: scroll;
+}
+
+.h1 {
+    display: flex;
+    align-items: center;
+}
