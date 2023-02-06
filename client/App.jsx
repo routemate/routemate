@@ -4,32 +4,27 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // require axios here
 const axios = require('axios');
 
-import Login from './components/Login';
+import Login from './components/Login.jsx';
 import Main from './components/Main';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // useEffect(() => {
-  //   const auth = axios.get('/authenticated').then((response) => {
-  //     // {response: {
-  //     //   data: {
-  //     //     authenticated: true/ false;
-  //     //   }
-  //     // }}
-  //     setIsAuthenticated(response.data.authenticated);
-  //   });
-  // });
+  useEffect(() => {
+     axios.get('/login/authenticate').then((response) => {
+      setIsAuthenticated(response.data.authenticated);
+    });
+  }, [isAuthenticated]);
 
   return (
-    <Switch>
-      <Route exact path="/">
-        {/* {isAuthenticated ? (<Main />) : (<Redirect to='/login'>)} */}
-        <Main />
-      </Route>
-      <Route exact path="/">
-        <Login />
-      </Route>
+    <Switch> 
+<Route path='/login'>
+  <Login />
+  </Route> 
+    <Route exact path='/'>
+      {/* {isAuthenticated ? <Main /> : <Redirect to='/login' />}*/}
+       <Main />
+      </Route> 
     </Switch>
   );
 };
