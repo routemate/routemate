@@ -10,13 +10,14 @@ const Main = () => {
   const [orders, setOrders] = useState([]);
   const [name, setName] = useState('');
 
-  const helper = ({ item, orderDate, vendor, trackingId, eta }) => {
+  const helper = ({ item, orderDate, vendor, trackingId, status ,eta, }) => {
     const newOrderComponent = (
       <Item
         item={item}
         orderDate={orderDate}
         vendor={vendor}
         trackingId={trackingId}
+        status = {status}
         eta={eta}
         key={trackingId}
       />
@@ -29,18 +30,20 @@ const Main = () => {
     axios.get('/order').then((response) => {
       setName(response.data.name);
 
-      const allOrders = response.data.orders.map(({ item, orderDate, vendor, trackingId, eta }, index) => (
-        <Item
-          item={item}
-          orderDate={orderDate}
-          vendor={vendor}
-          trackingId={trackingId}
-          eta={eta}
-          key={trackingId}
-        />
-      ),[]);
-      ;
-
+      const allOrders = response.data.orders.map(
+        ({ item, orderDate, vendor, trackingId, status, eta }, index) => (
+          <Item
+            item={item}
+            orderDate={orderDate}
+            vendor={vendor}
+            trackingId={trackingId}
+            status={status}
+            eta={eta}
+            key={trackingId}
+          />
+        ),
+        []
+      );
       // for (let i = 0; i < response.data.orders.length; i++) {
       //   const { item, orderDate, vendor, trackingId, eta } = orders[i];
       //   allOrders.push(
@@ -63,17 +66,28 @@ const Main = () => {
     <>
       <Navbar name={name} />
       <div>
-        <h1>Orders</h1>
-        <div className={"container"}>{orders}</div>
+        <div className={'orderHeader'}>Orders</div>
+        <div className="info-container">
+          <div className={'infoHeader'}>Item </div>
+          <div className={'infoHeader'}>Order Date</div>
+          <div className={'infoHeader'}>Vendor</div>
+          <div className={'infoHeader'}>Tracking ID</div>
+          <div className={'infoHeader'}>Status</div>
+          <div className={'infoHeader'}>Date Of Status</div>
+
+        </div>
+        <div>{orders}</div>
       </div>
+      <div className = {'formContainer'}>
       <Form helper={helper} />
+      </div>
     </>
   );
 };
 
 export default Main;
 
-// give container a set width and height, overflow: scroll, 
+// give container a set width and height, overflow: scroll,
 
 // const axios = require("axios");
 

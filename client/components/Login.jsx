@@ -34,8 +34,11 @@ const Login = () => {
 
   return (
     <>
-      <div className='login-container'>
-        {/* <input
+      <div className="login-background">
+        {/* <p className='welcome'> welcome to </p> */}
+      <p> routemate </p>
+        <div className="login-container">
+          {/* <input
           className='username'
           placeholder='Username'
           name='username'
@@ -47,7 +50,8 @@ const Login = () => {
           name='password'
           type='password'
         /> */}
-        <GoogleButton onClick={handleClick}>Login</GoogleButton>
+          <GoogleButton onClick={handleClick}>Login</GoogleButton>
+        </div>
       </div>
     </>
   );
