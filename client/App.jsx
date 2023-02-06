@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import { Switch, Route } from 'react-router';
 const axios = require('axios');
 
 import Login from './components/Login.jsx';
@@ -9,14 +9,15 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    console.log('here');
     axios.get('/login/authenticate').then((response) => {
       setIsAuthenticated(response.data.authenticated);
     });
   }, []);
+  console.log('here');
 
   return (
     <Switch>
-      {console.log('isAuthenticated', isAuthenticated)}
       <Route exact path='/'>
         {isAuthenticated ? <Main /> : <Login />}
       </Route>

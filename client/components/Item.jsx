@@ -6,14 +6,14 @@ const Item = ({ item, orderDate, vendor, trackingId, eta, status }) => {
 
   return (
     <>
-    <div className='container'> 
-     <div className='item'>{item}</div>
-      <div className='orderDate'>{orderDate}</div>
-      <div className='vendor'>{vendor}</div>
-      <div className='trackingId'>{trackingId}</div>
-      <div className='status'>{status}</div>
-      <div className='eta'>{eta}</div>
-    </div>
+      <div className='container'>
+        <div className='item'>{item}</div>
+        <div className='orderDate'>{orderDate}</div>
+        <div className='vendor'>{vendor}</div>
+        <div className='trackingId'>{trackingId}</div>
+        <div className='status'>{status}</div>
+        <div className='eta'>{eta}</div>
+      </div>
     </>
   );
 };

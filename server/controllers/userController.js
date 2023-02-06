@@ -31,12 +31,9 @@ userController.createToken = (req, res, next) => {
     expiresIn: '30m',
   });
 
-  console.log('TOKEN:', token);
   res.locals.token = token;
   next();
 };
-
-// {sub: id, email: email}
 
 userController.authenticate = async (req, res, next) => {
   const token = req.cookies.token;
@@ -46,13 +43,10 @@ userController.authenticate = async (req, res, next) => {
     if (!token) res.locals.authenticated = false;
     else {
       const decoded = jwt.verify(token, secret);
-      console.log(decoded);
       let results = await User.findOne({ email: decoded.email });
       if (!results) res.locals.authenticated = false;
       res.locals.authenticated = true;
     }
-
-    console.log('AUTHENTICATED:', res.locals.authenticated);
     next();
   } catch (e) {
     res.locals.authenticated = false;
