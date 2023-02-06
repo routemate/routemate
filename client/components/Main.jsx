@@ -22,7 +22,7 @@ const Main = () => {
 
       for (let i = 0; i < orders.length; i++) {
         const { item, orderDate, vendor, trackingId, eta } = orders[i];
-        allOrders(
+        allOrders.push(
           <Item
             item={item}
             orderDate={orderDate}
@@ -30,6 +30,7 @@ const Main = () => {
             trackingId={trackingId}
             eta={eta}
             key={trackingId}
+            className={'item'}
           />
         );
       }

@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 const axios = require('axios');
 
-import Login from './components/Login';
+import Login from './components/Login.jsx';
 import Main from './components/Main';
 
 const App = () => {
@@ -40,6 +40,7 @@ const App = () => {
   const token = document.cookie.includes('token');
   console.log('Return');
   return (
+
     <Switch>
       <Route exact path='/'>
         {token ? <Main /> : <Redirect to='/login' />}
