@@ -11,8 +11,8 @@
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/server/server.js",
       "env": {
-        "example": "jihui",
-        "mongoURI": "127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2"
+        "mongoURI": "127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2",
+        "secret": "mushrathahmedjihue"
       }
     }
   ]
