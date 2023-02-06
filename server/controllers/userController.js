@@ -25,11 +25,13 @@ userController.userAccount = async (req, res, next) => {
 userController.createToken = (req, res, next) => {
   const email = res.locals.email;
   const id = res.locals.id;
+  const secret = 'mushrathahmedjihue';
 
-  const token = jwt.sign({ sub: id, email }, process.env.secret, {
+  const token = jwt.sign({ sub: id, email }, secret, {
     expiresIn: '30m',
   });
 
+  console.log('TOKEN:', token);
   res.locals.token = token;
   next();
 };
@@ -38,16 +40,24 @@ userController.createToken = (req, res, next) => {
 
 userController.authenticate = async (req, res, next) => {
   const token = req.cookies.token;
+  const secret = 'mushrathahmedjihue';
 
-  if (!token) res.locals.authenticated = false;
-  else {
-    const decoded = jwt.verify(token, process.env.secret);
-    let results = await User.findOne({ email: decoded.email });
-    if (!results) res.locals.authenticated = false;
+  try {
+    if (!token) res.locals.authenticated = false;
+    else {
+      const decoded = jwt.verify(token, secret);
+      console.log(decoded);
+      let results = await User.findOne({ email: decoded.email });
+      if (!results) res.locals.authenticated = false;
+      res.locals.authenticated = true;
+    }
+
+    console.log('AUTHENTICATED:', res.locals.authenticated);
+    next();
+  } catch (e) {
+    res.locals.authenticated = false;
+    next();
   }
-
-  res.locals.authenticated = true;
-  next();
 };
 
 module.exports = userController;

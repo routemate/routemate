@@ -10,9 +10,6 @@ render(
   document.getElementById('app')
 );
 
-
-
-
 // import React from 'react';
 // import App from './App.js';
 // import './stylesheets/style.scss';
@@ -21,4 +18,4 @@ render(
 // const container = document.getElementById('root');
 // const root = createRoot(container);
 
-// root.render(<App />);  
+// root.render(<App />);

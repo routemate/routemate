@@ -1,6 +1,7 @@
 // const request = require('request');
 const { google } = require('googleapis');
 const cS = require('../client_secret.json');
+const url = require('url');
 
 const loginController = {};
 
@@ -50,13 +51,13 @@ loginController.getUserInfo = async (req, res, next) => {
   try {
     const people = google.people('v1');
     const oauth2Client = res.locals.client;
-    const res = await people.people.get({
+    const response = await people.people.get({
       resourceName: 'people/me',
       personFields: 'names,emailAddresses',
       auth: oauth2Client,
     });
 
-    const { names, emailAddresses } = res.data;
+    const { names, emailAddresses } = response.data;
     const name = names && names.length ? names[0].displayName : '';
     const email =
       emailAddresses && emailAddresses.length ? emailAddresses[0].value : '';

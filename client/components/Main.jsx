@@ -11,9 +11,9 @@ const Main = () => {
   const allOrders = [];
 
   const helper = (newOrder) => {
-    const newState = [...orders,newOrder];
-    setOrders(newState)
-  }
+    const newState = [...orders, newOrder];
+    setOrders(newState);
+  };
 
   useEffect(() => {
     axios.get('/order').then((response) => {
@@ -35,6 +35,7 @@ const Main = () => {
       }
     });
   });
+
   return (
     <>
       <Navbar name={name} />
@@ -42,9 +43,27 @@ const Main = () => {
         <h1>Orders</h1>
         <div>{allOrders}</div>
       </div>
-      <Form helper = {helper}/>
+      <Form helper={helper} />
     </>
   );
 };
 
 export default Main;
+
+// const axios = require("axios");
+
+// const apiKey = "your_api_key_here";
+// const trackingNumber = "your_tracking_number_here";
+
+// axios.get(`https://api.tracktry.com/v1/track?tracking_number=${trackingNumber}&carrier_code=auto&api_key=${apiKey}`)
+//   .then(response => {
+//     if (response.status === 200) {
+//       const deliveryDate = response.data.delivery_date;
+//       console.log("Delivery date: ", deliveryDate);
+//     } else {
+//       console.error("Error fetching delivery date");
+//     }
+//   })
+//   .catch(error => {
+//     console.error("Error fetching delivery date: ", error);
+//   });

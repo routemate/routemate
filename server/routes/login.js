@@ -18,11 +18,16 @@ router.use(
 );
 
 router.use('/google', loginController.googleOAuth, (req, res) => {
-  res.redirect(301, res.locals.redirect);
+  res.json({ url: res.locals.redirect });
 });
 
-router.use('/login', userController.authenticate, (req, res) => {
-  res.json({ authenticated: res.locals.authenticated });
+router.use('/authenticate', userController.authenticate, (req, res) => {
+  console.log('here');
+  return res.json({ authenticated: res.locals.authenticated });
+});
+
+router.use('/', (req, res) => {
+  res.redirect('/');
 });
 
 module.exports = router;
