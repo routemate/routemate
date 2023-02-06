@@ -14,7 +14,9 @@ const loginRouter = require('./routes/login.js');
 const orderController = require('./controllers/orderController');
 const userController = require('./controllers/userController');
 
-const mongoURI = process.env.mongoURI;
+const mongoURI =
+  process.env.mongoURI ||
+  'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2';
 mongoose.connect(mongoURI);
 
 app.use(express.json());

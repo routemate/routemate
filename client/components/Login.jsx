@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import GoogleButton from 'react-google-button';
 const axios = require('axios');
 
 const Login = () => {
-  
   const manualSignup = () => {
     const username = document.querySelector('.username');
     const password = document.querySelector('.password');
@@ -34,22 +34,20 @@ const Login = () => {
 
   return (
     <>
-      <div className="login-container">
-        <input
-          className="username"
-          placeholder="Username"
-          name="username"
-          type="text"
+      <div className='login-container'>
+        {/* <input
+          className='username'
+          placeholder='Username'
+          name='username'
+          type='text'
         />
         <input
-          className="password"
-          placeholder="Password"
-          name="password"
-          type="password"
-        />
-        <button className="login-button" onClick={handleClick}>
-          Login
-        </button>
+          className='password'
+          placeholder='Password'
+          name='password'
+          type='password'
+        /> */}
+        <GoogleButton onClick={handleClick}>Login</GoogleButton>
       </div>
     </>
   );
