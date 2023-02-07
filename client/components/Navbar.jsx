@@ -7,7 +7,6 @@ import { AppBar } from '@material-ui/core';
 import { Toolbar } from '@material-ui/core';
 
 const Navbar = ({ name }) => {
-
   const useStyles = makeStyles((theme) => ({
     menuButton: {
       marginRight: theme.spacing(2),
@@ -25,36 +24,16 @@ const Navbar = ({ name }) => {
   const username = name;
 
   const handleClick = () => {
-    <Route path='/redirect-page' element={<Redirect to='/login' />} />;
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    location.reload();
   };
 
-  /*
-import { useHistory } from 'react-router-dom';
-
-function Example() {
-  const history = useHistory();
-
-  function handleClick() {
-    history.push('/about');
-  }
-*/
-
   return (
-    // <>
-    //   <div className="nav-item hello">Hello, {username}</div>
-    //   <div className="nav-item title">
-    //     <strong>ShipIt Snippet</strong>
-    //   </div>
-    //   <div className="nav-item logout" onClick={handleClick}>
-    //     Logout
-    //   </div>
-    // </>
-
     <AppBar position='static' className='appbar'>
       <Toolbar>
         <Typography edge='start' color='inherit' className={classes.menuButton}>
           {' '}
-          Hi, {username}
+          Hi, Issam
         </Typography>
         <Typography variant='h6' className={classes.title}>
           routemate

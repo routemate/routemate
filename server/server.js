@@ -34,13 +34,15 @@ app.use(
 // ADD ROUTES HERE
 app.use('/login', loginRouter);
 
-app.get('/', (req, res) => {
-  res.redirect('http://localhost:8080/');
-});
-
 // provides client with array of orders from db
 app.get('/orders', orderController.getOrders, (req, res) => {
-  return res.status(200).json(res.locals.orders);
+  return res
+    .status(200)
+    .json({ orders: res.locals.orders, name: res.locals.name });
+});
+
+app.get('/', (req, res) => {
+  res.redirect('http://localhost:8080/');
 });
 
 app.post('/orders', orderController.updateOrders, (req, res) => {

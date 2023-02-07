@@ -3,11 +3,21 @@ const User = require('../models/userModel.js');
 const orderController = {};
 
 orderController.getOrders = (req, res, next) => {
-  /*TODO:*/ const email = 'toBeChangedLater';
-  User.findOne({ email }, 'orders')
-    .then((orders) => {
-      console.log(`All orders for ${email}:`, orders);
-      res.locals.orders = orders;
+  const token = req.cookies.token;
+  const secret = 'mushrathahmedjihue';
+
+  const decoded = jwt.verify(token, secret);
+  const email = decoded.email;
+
+  console.log('decoded', decoded);
+
+  User.findOne({ email })
+    .then((user) => {
+      console.log(`All orders for ${email}:`, user.orders);
+      console.log(`NAME:`, user.name);
+
+      res.locals.orders = user.orders;
+      res.locals.name = user.name;
       return next();
     })
     .catch((err) => {
@@ -21,9 +31,10 @@ orderController.getOrders = (req, res, next) => {
 };
 
 orderController.updateOrders = (req, res, next) => {
-  const { item, orderDate, vendor, trackingId, eta } = req.body;
-  const newOrder = { item, orderDate, vendor, trackingId, eta };
-  /*TODO:*/ const email = 'toBeChangedLater';
+  const { item, orderDate, vendor, trackingId, eta, status } = req.body;
+  const newOrder = { item, orderDate, vendor, trackingId, eta, status };
+
+  res.cookie();
   User.updateOne({ email }, { $push: { orders: newOrder } })
     .then(next)
     .catch((err) => {
@@ -36,8 +47,4 @@ orderController.updateOrders = (req, res, next) => {
     });
 };
 
-/*for updateOrders, destrcutured all order properties and stored in a new object, then pushed that object into db because taking the whole order object from the req.body will allow for someone to input garbage data in post request.*/
-
 module.exports = orderController;
-
-// item, orderDate, vendor, trackingId, eta

@@ -10,10 +10,11 @@ import { useState, useEffect } from 'react';
 const axios = require('axios');
 
 const Form = ({ helper }) => {
-  const [date, setDate] = useState(dayjs('2023-02-05T21:11:54'));
+  const [date, setDate] = useState(dayjs('2021-01-01T21'));
   const [item, setItem] = useState('');
   const [vendor, setVendor] = useState('');
   const [trackingId, setTrackingId] = useState('');
+  const [dateOrdered, setDateOrdered] = useState('');
   let estimatedArrival;
 
   const handleChange = (newDate) => {
@@ -72,11 +73,11 @@ const Form = ({ helper }) => {
           const status = response.data[0].delivery_status;
 
           const newOrder = {
-            vendor,
+            vendor: vendor.toUpperCase(),
             orderDate: formatDate(date.$d.toString()),
             item,
             trackingId,
-            status,
+            status: status.toUpperCase(),
             eta: formatDate(estimatedArrival),
           };
 
@@ -91,7 +92,7 @@ const Form = ({ helper }) => {
 
     fetching();
 
-    fetch('/orders');
+    // fetch('/orders');
   };
 
   return (
@@ -103,9 +104,8 @@ const Form = ({ helper }) => {
       }}
       noValidate
       autoComplete='off'
-      onSubmit={handleSubmit}>
-      autoComplete="off" onSubmit={handleSubmit}
-      className = 'box' >
+      onSubmit={handleSubmit}
+      className='box'>
       <div>
         <TextField
           size='small'
