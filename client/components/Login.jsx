@@ -1,10 +1,60 @@
 import React, { useState, useRef, useEffect } from 'react';
+import GoogleButton from 'react-google-button';
+const axios = require('axios');
 
 const Login = () => {
-  // set state
-  // use effect
-  // return
-  // <>
+  const manualSignup = () => {
+    const username = document.querySelector('.username');
+    const password = document.querySelector('.password');
+    fetch('/login', {
+      method: post,
+      body: {
+        username: username,
+        password: password,
+      },
+    });
+  };
+
+  const handleClick = () => {
+    axios
+      .post(
+        '/login/google',
+        {},
+        {
+          header: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((response) => {
+        window.location.href = response.data.url;
+      })
+      .catch((error) => console.log(`Error redirecting to google: ${error}`));
+  };
+
+  return (
+    <>
+      <div className="login-background">
+        {/* <p className='welcome'> welcome to </p> */}
+      <p> routemate </p>
+        <div className="login-container">
+          {/* <input
+          className='username'
+          placeholder='Username'
+          name='username'
+          type='text'
+        />
+        <input
+          className='password'
+          placeholder='Password'
+          name='password'
+          type='password'
+        /> */}
+          <GoogleButton onClick={handleClick}>Login</GoogleButton>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Login;
@@ -25,8 +75,6 @@ export default Login;
 //         password,
 //       },
 //     });
-//   };
-
 //   const githubSignup = () => {
 //     axios
 //       .post(
@@ -42,6 +90,7 @@ export default Login;
 //         window.location.href = response.data.url;
 //       })
 //       .catch((error) => console.log(error));
+//   };
 //   };
 
 //   return (
@@ -60,7 +109,6 @@ export default Login;
 //         <input
 //           type='password'
 //           name='password'
-//           id='password'
 //           placeholder='Password'
 //           required
 //         ></input>
